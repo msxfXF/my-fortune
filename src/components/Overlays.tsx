@@ -77,6 +77,7 @@ export function SealBook({ onClose }: { onClose: () => void }) {
 
 export function HistoryDrawer({ onClose }: { onClose: () => void }) {
   const history = useStore((s) => s.history);
+  const [confirming, setConfirming] = useState(false);
   return (
     <Modal onClose={onClose} drawer>
       <h2 className="gold-text">占卜录</h2>
@@ -100,9 +101,29 @@ export function HistoryDrawer({ onClose }: { onClose: () => void }) {
         </ul>
       )}
       {history.length > 0 && (
-        <button className="btn btn-ghost" style={{ marginTop: 14 }} onClick={() => confirm('确定清空全部占卜记录？') && clearHistory()}>
-          清空记录
-        </button>
+        <div style={{ display: 'flex', gap: 10, marginTop: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+          {confirming ? (
+            <>
+              <span className="muted" style={{ fontSize: 13 }}>确定清空全部记录？</span>
+              <button
+                className="btn"
+                onClick={() => {
+                  clearHistory();
+                  setConfirming(false);
+                }}
+              >
+                清空
+              </button>
+              <button className="btn btn-ghost" onClick={() => setConfirming(false)}>
+                取消
+              </button>
+            </>
+          ) : (
+            <button className="btn btn-ghost" onClick={() => setConfirming(true)}>
+              清空记录
+            </button>
+          )}
+        </div>
       )}
     </Modal>
   );

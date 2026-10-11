@@ -147,6 +147,7 @@ function Dial({ stemAngle, branchAngle, litStems, litBranches, spinning }: { ste
 export default function BaZi() {
   const [birth, setBirth] = useState<BirthInput>({ kind: 'solar', year: 1995, month: 6, day: 15, shichen: 7 });
   const [gender, setGender] = useState<0 | 1>(1);
+  const [error, setError] = useState('');
   const [stage, setStage] = useState<Stage>('input');
   const [result, setResult] = useState<BaziResult | null>(null);
   const [shown, setShown] = useState(0);
@@ -160,10 +161,11 @@ export default function BaZi() {
     try {
       r = analyzeBazi(toLunar(birth), gender);
     } catch {
-      alert('日期无效，请检查输入');
+      setError('该日期不存在，请重新选择');
       return;
     }
     setResult(r);
+    setError('');
     setStage('casting');
     setShown(0);
     let s = angles.s;
@@ -213,6 +215,7 @@ export default function BaZi() {
               <button className="btn btn-primary btn-lg" onClick={cast}>
                 启星盘 · 排四柱
               </button>
+              {error && <div className="hint" style={{ color: 'var(--vermilion-hi)' }}>{error}</div>}
             </>
           )}
           <div className="bz-stage">

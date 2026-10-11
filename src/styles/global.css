@@ -115,7 +115,7 @@ main {
 /* ---------- 顶栏 ---------- */
 .topbar {
   position: sticky;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   z-index: 30;
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);

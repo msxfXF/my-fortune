@@ -27,6 +27,7 @@ npm install
 npm run dev       # 本地开发
 npm test          # 算法与文案单元测试
 npm run build     # 类型检查 + 产出 dist/（相对路径，可直接部署到任意静态托管）
+npm run build:single  # 产出 dist-single/index.html，JS/CSS 全部内联的单文件版本
 ```
 
 技术栈：Vite + React 19 + TypeScript；历法、节气、八字、黄历使用 [lunar-javascript](https://github.com/6tail/lunar-javascript)。音效由 WebAudio 实时合成，无音频资源。

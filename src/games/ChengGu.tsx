@@ -74,6 +74,7 @@ function Steelyard({ pos, angle, bag }: { pos: number; angle: number; bag: numbe
 export default function ChengGu() {
   const [birth, setBirth] = useState<BirthInput>({ kind: 'lunar', year: 1990, month: 5, day: 15, shichen: 7 });
   const [weigh, setWeigh] = useState<Weigh | null>(null);
+  const [error, setError] = useState('');
   const [stage, setStage] = useState<'input' | 'weighing' | 'done'>('input');
   const [shownParts, setShownParts] = useState(0);
   const [sim, setSim] = useState({ pos: MIN, angle: -14, bag: 0 });
@@ -93,7 +94,7 @@ export default function ChengGu() {
     try {
       l = toLunar(birth);
     } catch {
-      alert('日期无效，请检查输入');
+      setError('该日期不存在，请重新选择');
       return;
     }
     const yearGz = l.getYearInGanZhi();
@@ -108,6 +109,7 @@ export default function ChengGu() {
     const total = parts.reduce((s, p) => s + p.qian, 0);
     const w: Weigh = { parts, total, lunarText: `农历${yearGz}年${l.getMonthInChinese()}月${l.getDayInChinese()} ${BRANCHES[birth.shichen - 1]}时` };
     setWeigh(w);
+    setError('');
     setStage('weighing');
     setShownParts(0);
     parts.forEach((_, i) =>
@@ -173,6 +175,7 @@ export default function ChengGu() {
               <button className="btn btn-primary btn-lg" onClick={start}>
                 上秤一称
               </button>
+              {error && <div className="hint" style={{ color: 'var(--vermilion-hi)' }}>{error}</div>}
             </>
           )}
           <div className="cg-scale">
