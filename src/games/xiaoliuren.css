@@ -1,0 +1,96 @@
+.xlr-board {
+  position: relative;
+  width: min(440px, 88vw);
+  aspect-ratio: 1;
+  margin: 6px auto;
+}
+.xlr-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spin 160s linear infinite;
+}
+.xlr-palace {
+  position: absolute;
+  width: 24%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(232, 194, 122, 0.3);
+  background: radial-gradient(circle at 40% 30%, rgba(60, 48, 90, 0.9), rgba(16, 12, 28, 0.95));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s, box-shadow 0.25s, border-color 0.25s, background 0.3s;
+}
+.xlr-name {
+  font-family: var(--font-title);
+  font-size: clamp(20px, 5.5vw, 30px);
+  color: var(--ink);
+  line-height: 1;
+}
+.xlr-god {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+.xlr-palace.marked {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.xlr-palace.active {
+  transform: translate(-50%, -50%) scale(1.14);
+  border-color: var(--accent-hi);
+  background: radial-gradient(circle at 40% 30%, color-mix(in srgb, var(--accent) 55%, #1a1430), rgba(16, 12, 28, 0.95));
+  box-shadow: 0 0 34px var(--accent-glow), 0 0 0 2px var(--accent);
+}
+.xlr-palace.active .xlr-name {
+  color: #fff;
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+.xlr-palace.final {
+  animation: xlr-final 1.6s ease-in-out infinite;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+@keyframes xlr-final {
+  50% {
+    box-shadow: 0 0 60px var(--accent-glow), 0 0 0 4px var(--accent);
+  }
+}
+.xlr-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle, rgba(232, 194, 122, 0.14), rgba(10, 8, 18, 0.6) 70%);
+  border: 1px solid rgba(232, 194, 122, 0.35);
+}
+.xlr-phase {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+}
+.xlr-count {
+  font-size: clamp(38px, 10vw, 60px);
+  line-height: 1.15;
+  color: var(--gold-hi);
+  text-shadow: 0 0 20px rgba(255, 196, 92, 0.5);
+}
+.xlr-meta {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  padding: 0 6px;
+}

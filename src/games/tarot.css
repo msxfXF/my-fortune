@@ -1,0 +1,162 @@
+.tcard {
+  --w: clamp(78px, 15vw, 120px);
+  width: var(--w);
+  aspect-ratio: 120 / 200;
+  perspective: 1200px;
+  border: none;
+  padding: 0;
+  background: none;
+}
+.tc-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.tc-back,
+.tc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 9px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.tc-face {
+  transform: rotateY(180deg);
+}
+.tc-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.tcard.flipped .tc-inner {
+  transform: rotateY(180deg);
+}
+.tcard.flipped.reversed .tc-inner {
+  transform: rotateY(180deg) rotateZ(180deg);
+}
+.tcard.flipped .tc-face {
+  box-shadow: 0 0 40px rgba(255, 196, 92, 0.35), 0 10px 26px rgba(0, 0, 0, 0.5);
+}
+
+.tarot-deck {
+  position: relative;
+  width: 140px;
+  height: 230px;
+  margin: 10px auto;
+}
+.deck-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  --w: 120px;
+  transform: translate(-50%, -50%) translate(calc(var(--i) * -1.5px), calc(var(--i) * -1.5px));
+}
+.tarot-deck.shuffling .deck-card {
+  animation: shuffle 0.52s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.07s);
+}
+@keyframes shuffle {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  30% {
+    transform: translate(calc(-50% + (var(--i) - 3) * 22px), -60%) rotate(calc((var(--i) - 3) * 6deg));
+  }
+  60% {
+    transform: translate(calc(-50% - (var(--i) - 3) * 18px), -46%) rotate(calc((var(--i) - 3) * -4deg));
+  }
+}
+
+.tarot-fan {
+  --step: 4.4deg;
+  --origin: 320%;
+  --lift: 150px;
+  position: relative;
+  width: 100%;
+  height: 340px;
+  margin-top: 10px;
+}
+.fan-card {
+  --w: clamp(56px, 10vw, 92px);
+  position: absolute;
+  left: 50%;
+  bottom: var(--lift);
+  margin-left: calc(var(--w) / -2);
+  transform-origin: 50% var(--origin);
+  transform: rotate(calc(var(--k) * var(--step)));
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s, filter 0.3s;
+  animation: fan-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: var(--d);
+}
+@keyframes fan-in {
+  from {
+    transform: rotate(0deg) translateY(40px);
+    opacity: 0;
+  }
+}
+.fan-card:hover,
+.fan-card:focus-visible {
+  transform: rotate(calc(var(--k) * var(--step))) translateY(-26px);
+  filter: drop-shadow(0 0 14px rgba(255, 196, 92, 0.6));
+  outline: none;
+  z-index: 2;
+}
+.fan-card.taken {
+  opacity: 0;
+  transform: rotate(calc(var(--k) * var(--step))) translateY(-120px) scale(0.8);
+  pointer-events: none;
+}
+
+.tarot-slots {
+  display: flex;
+  justify-content: center;
+  gap: clamp(14px, 4vw, 40px);
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.tarot-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: fade-up 0.6s both;
+}
+.slot-card {
+  --w: clamp(96px, 24vw, 150px);
+}
+.slot-label {
+  font-family: var(--font-title);
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: 4px;
+}
+.slot-caption {
+  font-size: 14px;
+  color: var(--gold-hi);
+  letter-spacing: 2px;
+}
+.tarot-reading {
+  margin-top: 8px;
+}
+.tarot-reading h4 {
+  color: var(--accent);
+}
+.tarot-reading .poem {
+  margin: 12px 0;
+  font-size: 19px;
+}
+
+@media (max-width: 640px) {
+  .tarot-fan {
+    --step: 2.9deg;
+    --origin: 270%;
+    --lift: 56px;
+    height: 190px;
+  }
+}

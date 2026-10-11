@@ -1,0 +1,291 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.ly-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+.ly-tray {
+  position: relative;
+  border-radius: 18px;
+  padding: 230px 16px 18px;
+  background:
+    radial-gradient(ellipse at 50% 85%, rgba(140, 30, 24, 0.55), transparent 70%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(60, 12, 10, 0.45));
+  border: 1px solid rgba(232, 194, 122, 0.15);
+  overflow: hidden;
+}
+.ly-coins {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+  display: flex;
+  justify-content: center;
+  gap: clamp(10px, 4vw, 30px);
+}
+.ly-coin-slot {
+  position: relative;
+  width: clamp(64px, 16vw, 92px);
+  aspect-ratio: 1;
+  perspective: 700px;
+}
+.ly-coin-shadow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7), transparent 70%);
+  opacity: 0.6;
+}
+.ly-coin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.coin-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: radial-gradient(circle at 34% 28%, #fff2c4 0%, #e3b55c 30%, #b07a2c 62%, #6e4512 100%);
+  box-shadow: inset 0 0 0 3px #6b4312, inset 0 0 0 6px #e7c37a, inset 0 0 0 8px #8a5b1c, inset 0 0 18px rgba(0, 0, 0, 0.45), 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.coin-face.back {
+  transform: rotateX(180deg);
+  background: radial-gradient(circle at 34% 28%, #f2dfae 0%, #c99a4c 32%, #8c5f22 65%, #563409 100%);
+}
+.coin-face .hole {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26%;
+  height: 26%;
+  transform: translate(-50%, -50%);
+  background: #140c05;
+  box-shadow: 0 0 0 3px #e7c37a, 0 0 0 5px #7a4e17;
+}
+.coin-face .ct {
+  position: absolute;
+  font-family: var(--font-title);
+  font-size: clamp(14px, 3.4vw, 20px);
+  color: #4a2a08;
+  text-shadow: 0 1px 0 rgba(255, 240, 200, 0.6);
+  line-height: 1;
+}
+.ct.t {
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ct.b {
+  bottom: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ct.r {
+  right: 13%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ct.l {
+  left: 13%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.ly-toss-info {
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-2);
+  letter-spacing: 1px;
+}
+.ly-toss-info b {
+  color: var(--gold-hi);
+}
+.ly-moving-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--vermilion);
+  color: #fbe9cf;
+  font-size: 12px;
+}
+.ly-rack {
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: linear-gradient(to bottom, rgba(42, 26, 14, 0.7), rgba(20, 12, 6, 0.7));
+  border: 1px solid rgba(232, 194, 122, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.ly-rack-title {
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 22px;
+  letter-spacing: 10px;
+  color: var(--gold);
+}
+.ly-row {
+  display: grid;
+  grid-template-columns: 38px 1fr 18px 36px;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.ly-row.on .ly-yname,
+.ly-row.on .ly-vname {
+  color: var(--ink-2);
+}
+.ly-bar {
+  display: flex;
+  justify-content: space-between;
+  height: 12px;
+  transition: filter 0.5s;
+}
+.ly-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(232, 194, 122, 0.12);
+  transition: background 0.5s, width 0.5s;
+}
+.ly-bar.yang i:first-child {
+  width: 100%;
+}
+.ly-bar.yang i:last-child {
+  display: none;
+}
+.ly-bar.yin i,
+.ly-bar.blank i {
+  width: 43%;
+}
+.ly-bar.blank i:last-child {
+  display: block;
+}
+.ly-row.on .ly-bar i {
+  background: linear-gradient(90deg, #c8964a, #ffe2a3, #c8964a);
+  box-shadow: 0 0 10px rgba(255, 196, 92, 0.5);
+}
+.ly-row.on .ly-bar {
+  animation: bar-in 0.7s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+@keyframes bar-in {
+  from {
+    transform: scaleX(0.2);
+    filter: brightness(3);
+  }
+}
+.ly-row.pending .ly-bar i {
+  animation: pend 0.9s ease-in-out infinite;
+}
+@keyframes pend {
+  50% {
+    background: rgba(232, 194, 122, 0.35);
+  }
+}
+.ly-mark {
+  color: var(--vermilion-hi);
+  font-size: 16px;
+  font-weight: 900;
+  text-align: center;
+}
+.ly-formed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.ly-formed-hex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: hex-rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes hex-rise {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+    filter: blur(8px) brightness(3);
+  }
+}
+.ly-formed-name {
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+.ly-arrow {
+  font-family: var(--font-title);
+  font-size: 30px;
+  color: var(--vermilion-hi);
+}
+.ly-table-wrap {
+  overflow-x: auto;
+}
+.ly-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 420px;
+}
+.ly-table th {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ly-table td {
+  padding: 8px 6px;
+  text-align: center;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+}
+.ly-table tr.mv td {
+  color: var(--accent-hi);
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+.ly-table .ly-bar.mini {
+  display: inline-flex;
+  width: 60px;
+  height: 8px;
+  vertical-align: middle;
+}
+.ly-table .ly-bar.mini i {
+  background: var(--accent);
+}
+.ly-table .ly-bar.mini.dim i {
+  opacity: 0.35;
+}
+.ly-sy {
+  font-family: var(--font-title);
+  font-size: 18px;
+  color: var(--vermilion-hi);
+}
+.ly-notes {
+  margin: 0;
+  padding-left: 20px;
+}
+.ly-notes li {
+  margin: 6px 0;
+}
+@media (max-width: 760px) {
+  .ly-layout {
+    grid-template-columns: 1fr;
+  }
+}
